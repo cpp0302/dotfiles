@@ -1,3 +1,7 @@
+" 挙動を vi 互換ではなく、Vim のデフォルト設定にする
+set nocompatible
+" 一旦ファイルタイプ関連を無効化する
+filetype off
 
 "****************************************
 " Vim Options
@@ -10,15 +14,13 @@ set ruler
 set laststatus=2
 set hlsearch
 set background=dark
+" 構文ごとに文字色を変化させる
+syntax on
 
 " ステータス行に表示させる情報の指定(どこからかコピペしたので細かい意味はわかっていない)
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 " ステータス行に現在のgitブランチを表示する
 set statusline+=%{fugitive#statusline()}
-
-
-set nocompatible               " be iMproved
-filetype off
 
 
 "****************************************
@@ -57,9 +59,9 @@ NeoBundle "honza/vim-snippets"
 
 call neobundle#end()
 
-filetype plugin indent on     " required!
+" required!
+filetype plugin indent on
 filetype indent on
-syntax on
 
 
 "****************************************
@@ -98,8 +100,53 @@ imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: "\<TAB>"
- 
+
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+
+" neosnippet-snippet以外のスニペットを読み込む
+let g:neosnippet#enable_snipmate_compatibility = 1
+
+" honza/vim-snippetsとの互換性を上げるために一旦無効にする
+let g:neosnippet#disable_runtime_snippets = {'_' : 1}
+
+" スニペットの読み込み
+let g:neosnippet#snippets_directory = []
+let g:neosnippet#snippets_directory += ['~/.vim/bundle/neosnippet-snippets/neosnippets']
+if ! empty(neobundle#get("vim-snippets"))
+  let g:neosnippet#snippets_directory += ['~/.vim/bundle/vim-snippets/snippets']
+endif
+
+" filetypeの自動検出(最後の方に書いたほうがいいらしい)
+filetype on
+
+
+"******************************
+" neocomplete
+"******************************
+if neobundle#is_installed('neocomplete')
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#enable_ignore_case = 1
+
+  " Define keyword.
+  if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+  endif 
+  let g:neocomplete#keyword_patterns['defaults'] = '\h\w*'
+elseif neobundle#is_installed('neocomplcache')
+  let g:neocomplcache_enable_at_startup = 1
+  let g:neocomplcache_enable_smart_case = 1
+  let g:neocomplcache_enable_ignore_case = 1
+
+  " Define keyword.
+  if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+  endif 
+  let g:neocomplcache_keyword_patterns['defaults'] = '\h\w*'
+endif
+
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
