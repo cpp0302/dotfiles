@@ -1,3 +1,7 @@
 .DS_Store
 .netrwhist
 /vimfiles/bundle/
+
+# tmux inator
+/.tmuxinator/*.yml
+!/.tmuxinator/base-*.yml
