@@ -1,11 +1,29 @@
 
+"******************************
+" Vim Options
+"******************************
 set tabstop=4 "タブ文字
 set shiftwidth=4
 set expandtab
+set number
+set ruler
+set laststatus=2
+set hlsearch
+set background=dark
+
+" ステータス行に表示させる情報の指定(どこからかコピペしたので細かい意味はわかっていない)
+set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+" ステータス行に現在のgitブランチを表示する
+set statusline+=%{fugitive#statusline()}
+
 
 set nocompatible               " be iMproved
 filetype off
 
+
+"******************************
+" NeoBundle
+"******************************
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
   call neobundle#begin(expand('~/.vim/bundle/'))
@@ -29,10 +47,17 @@ filetype plugin indent on     " required!
 filetype indent on
 syntax on
 
-" カラースキーマ
+
+"******************************
+" Color Scheme
+"******************************
 colorscheme molokai
 set t_Co=256
 
+
+"******************************
+" Plugin Settings
+"******************************
 " vim-indent-guides
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
