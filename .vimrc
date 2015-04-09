@@ -14,6 +14,7 @@ set ruler
 set laststatus=2
 set hlsearch
 set background=dark
+set backspace=indent,eol,start
 " 構文ごとに文字色を変化させる
 syntax on
 
