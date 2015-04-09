@@ -10,8 +10,15 @@ if has('vim_starting')
   call neobundle#begin(expand('~/.vim/bundle/'))
 endif
 
+" カラースキーマ
+NeoBundle 'tomasr/molokai'
+
 call neobundle#end()
 
 filetype plugin indent on     " required!
 filetype indent on
 syntax on
+
+" カラースキーマの設定
+colorscheme molokai
+set t_Co=256
