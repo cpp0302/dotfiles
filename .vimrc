@@ -20,6 +20,9 @@ NeoBundle 'tomtom/tcomment_vim'
 " インデントに色をつけて見やすくする
 NeoBundle 'nathanaelkane/vim-indent-guides'
 
+" gitのラッパー
+NeoBundle 'tpope/vim-fugitive'
+
 call neobundle#end()
 
 filetype plugin indent on     " required!
