@@ -58,6 +58,10 @@ NeoBundle 'Shougo/neosnippet-snippets'
 " スニペットの定義ファイル集(Neosnipettでも使える)
 NeoBundle "honza/vim-snippets"
 
+" Sassの色付け、インデント、自動コンパイルを行ってくれる
+NeoBundle "AtsushiM/search-parent.vim"
+NeoBundle "AtsushiM/sass-compile.vim"
+
 call neobundle#end()
 
 " required!
@@ -151,3 +155,16 @@ endif
 
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
+"******************************
+" sass-compile
+"******************************
+let g:sass_compile_auto = 1
+let g:sass_compile_file = ['scss', 'sass']
+let g:sass_compile_cssdir = ['css', 'stylesheet']
+let g:sass_started_dirs = []
+" 編集したファイルから遡るフォルダの最大数
+let g:sass_compile_cdloop = 5
+let g:sass_compile_beforecmd = ""
+let g:sass_compile_aftercmd = ""
+
