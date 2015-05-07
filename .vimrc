@@ -165,6 +165,5 @@ let g:sass_compile_cssdir = ['css', 'stylesheet']
 let g:sass_started_dirs = []
 " 編集したファイルから遡るフォルダの最大数
 let g:sass_compile_cdloop = 5
-let g:sass_compile_beforecmd = ""
-let g:sass_compile_aftercmd = ""
-
+let g:sass_compile_beforecmd = ''
+let g:sass_compile_aftercmd = '' 

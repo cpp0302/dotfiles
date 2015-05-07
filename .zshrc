@@ -138,6 +138,10 @@ alias tree="tree -NC" # N: 文字化け対策, C:色をつける
 alias c="clear"
 alias cl="clear; ls -l"
 
+# cordova
+alias runi="cordova run ios --device"
+alias runa="cordova run android --device"
+
 # -------------------------------------
 # キーバインド
 # -------------------------------------
