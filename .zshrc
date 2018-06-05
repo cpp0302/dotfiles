@@ -138,6 +138,7 @@ alias tree="tree -NC" # N: 文字化け対策, C:色をつける
 alias c="clear"
 alias cl="clear; ls -l"
 
+alias cdgo="cd ~/go/src/github.com/andfactory/$(basename $(pwd))"
 
 # -------------------------------------
 # キーバインド
@@ -171,4 +172,16 @@ function title {
 # Ruby
 # -------------------------------------
 eval "$(rbenv init - zsh)"
+
+# -------------------------------------
+# Go
+# -------------------------------------
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+NODEBREW_HOME=/usr/local/var/nodebrew/current
+export NODEBREW_HOME
+export NODEBREW_ROOT=/usr/local/var/nodebrew
+
+export PATH=$PATH:$NODEBREW_HOME/bin
 
