@@ -140,6 +140,41 @@ alias cl="clear; ls -l"
 
 alias cdgo="cd ~/go/src/github.com/andfactory/$(basename $(pwd))"
 
+# ssh拡張
+function ssh {
+  # iTermのタブタイトルを変更
+  tab-title $1
+
+  # iTermのプロファイルを変更
+  if [ `echo "$1" | grep "Dev"` ]; then
+    change-profile dev
+  else
+    change-profile prod
+  fi
+
+  /usr/bin/ssh $@
+
+  # iTermのタブタイトルとプロファイルをリセット
+  tab-title localhost
+  change-profile normal
+}
+
+# vagrant拡張
+function vagrant {
+
+  # iTerm色を変更
+  if [ "$1" = "ssh" ]; then
+    tab-color 128 128 255
+  fi
+
+  /usr/local/bin/vagrant $@
+
+  # iTermの色をリセット
+  if [ "$1" = "ssh" ]; then
+    tab-reset
+  fi
+}
+
 # -------------------------------------
 # キーバインド
 # -------------------------------------
@@ -164,8 +199,25 @@ bindkey "^R" history-incremental-search-backward
 function chpwd() { ls -l }
 
 # iTerm2のタブ名を変更する
-function title {
-    echo -ne "\033]0;"$*"\007"
+function tab-title {
+  echo -ne "\033]0;"$*"\007"
+}
+
+# iTermのタブ色を設定する
+tab-color() {
+    echo -ne "\033]6;1;bg;red;brightness;$1\a"
+    echo -ne "\033]6;1;bg;green;brightness;$2\a"
+    echo -ne "\033]6;1;bg;blue;brightness;$3\a"
+}
+
+# iTermのタブ色をリセットする
+tab-reset() {
+    echo -ne "\033]6;1;bg;*;default\a"
+}
+
+# iTermのプロファイルを変更する
+change-profile() {
+    echo -ne "\033]1337;SetProfile=$1\a"
 }
 
 # -------------------------------------
